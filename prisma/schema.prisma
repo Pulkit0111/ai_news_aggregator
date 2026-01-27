@@ -1,0 +1,44 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Source {
+  id        String    @id @default(uuid())
+  name      String
+  website   String
+  rssUrl    String?
+  trusted   Boolean   @default(true)
+  articles  Article[]
+  createdAt DateTime  @default(now())
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  name      String
+  slug      String    @unique
+  articles  Article[] @relation("ArticleCategories")
+}
+
+model Article {
+  id          String      @id @default(uuid())
+  title       String
+  url         String      @unique
+  summary     String?
+  publishedAt DateTime?
+  sourceId    String
+  source      Source      @relation(fields: [sourceId], references: [id])
+  categories  Category[]  @relation("ArticleCategories")
+  createdAt   DateTime    @default(now())
+}
+
+model NewsletterSubscriber {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  subscribedAt  DateTime @default(now())
+  active        Boolean  @default(true)
+}
