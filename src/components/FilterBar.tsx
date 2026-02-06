@@ -31,21 +31,21 @@ export default function FilterBar({ sources, categories }: FilterBarProps) {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 mb-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="bg-white border-4 border-black p-6 mb-8 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Source Filter */}
         <div>
           <label
             htmlFor="source-filter"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-black text-black mb-3 uppercase"
           >
-            Filter by Source
+            📰 Source
           </label>
           <select
             id="source-filter"
             value={currentSource}
             onChange={(e) => updateFilter('source', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:bg-yellow-100 bg-white text-black font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
           >
             <option value="">All Sources</option>
             {sources.map((source) => (
@@ -60,15 +60,15 @@ export default function FilterBar({ sources, categories }: FilterBarProps) {
         <div>
           <label
             htmlFor="category-filter"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            className="block text-sm font-black text-black mb-3 uppercase"
           >
-            Filter by Category
+            🏷️ Category
           </label>
           <select
             id="category-filter"
             value={currentCategory}
             onChange={(e) => updateFilter('category', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-3 border-4 border-black focus:outline-none focus:bg-yellow-100 bg-white text-black font-bold transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
           >
             <option value="">All Categories</option>
             {categories.map((category) => (
@@ -82,24 +82,24 @@ export default function FilterBar({ sources, categories }: FilterBarProps) {
 
       {/* Active Filters Display */}
       {(currentSource || currentCategory) && (
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="text-sm text-gray-600 dark:text-gray-400">Active filters:</span>
+        <div className="mt-6 flex flex-wrap items-center gap-3 pt-4 border-t-4 border-black">
+          <span className="text-sm font-black text-black uppercase">Active:</span>
           {currentSource && (
             <button
               onClick={() => updateFilter('source', '')}
-              className="px-3 py-1 bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 rounded-full text-sm flex items-center gap-1 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+              className="px-4 py-2 bg-cyan-300 text-black border-4 border-black text-sm font-black uppercase flex items-center gap-2 hover:bg-yellow-300 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
             >
-              Source: {sources.find((s) => s.id === currentSource)?.name || 'Unknown'}
-              <span className="ml-1">×</span>
+              {sources.find((s) => s.id === currentSource)?.name || 'Unknown'}
+              <span className="text-lg">×</span>
             </button>
           )}
           {currentCategory && (
             <button
               onClick={() => updateFilter('category', '')}
-              className="px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm flex items-center gap-1 hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+              className="px-4 py-2 bg-purple-300 text-black border-4 border-black text-sm font-black uppercase flex items-center gap-2 hover:bg-yellow-300 transition-all shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
             >
-              Category: {categories.find((c) => c.id === currentCategory)?.name || 'Unknown'}
-              <span className="ml-1">×</span>
+              {categories.find((c) => c.id === currentCategory)?.name || 'Unknown'}
+              <span className="text-lg">×</span>
             </button>
           )}
         </div>

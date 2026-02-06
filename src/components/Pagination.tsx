@@ -14,7 +14,7 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
   const goToPage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('page', page.toString());
-    router.push(`/?${params.toString()}`);
+    router.push(`/?${params.toString()}`, { scroll: false });
   };
 
   // Don't show pagination if there's only one page
@@ -60,24 +60,27 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
   };
 
   return (
-    <div className="mt-8 flex justify-center items-center gap-2">
+    <div className="mt-12 flex justify-center items-center gap-4">
       {/* Previous Button */}
       <button
         onClick={() => goToPage(currentPage - 1)}
         disabled={currentPage === 1}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300"
+        className="px-6 py-3 bg-white border-4 border-black hover:bg-cyan-300 disabled:opacity-40 disabled:cursor-not-allowed text-black font-black uppercase transition-all flex items-center gap-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1"
       >
-        Previous
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
+        </svg>
+        Prev
       </button>
 
       {/* Page Numbers */}
-      <div className="flex gap-1">
+      <div className="flex gap-2">
         {getPageNumbers().map((page, index) => {
           if (page === '...') {
             return (
               <span
                 key={`ellipsis-${index}`}
-                className="px-3 py-2 text-gray-500 dark:text-gray-400"
+                className="px-4 py-3 text-black font-black"
               >
                 ...
               </span>
@@ -91,10 +94,10 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
             <button
               key={pageNum}
               onClick={() => goToPage(pageNum)}
-              className={`px-4 py-2 border rounded-md transition-colors ${
+              className={`min-w-[48px] px-4 py-3 border-4 font-black transition-all hover:translate-x-1 hover:translate-y-1 ${
                 isCurrentPage
-                  ? 'bg-blue-600 text-white border-blue-600'
-                  : 'border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-700 dark:text-gray-300'
+                  ? 'bg-yellow-300 text-black border-black shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]'
+                  : 'bg-white text-black border-black hover:bg-cyan-300 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]'
               }`}
             >
               {pageNum}
@@ -107,9 +110,12 @@ export default function Pagination({ currentPage, totalPages }: PaginationProps)
       <button
         onClick={() => goToPage(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed text-gray-700 dark:text-gray-300"
+        className="px-6 py-3 bg-white border-4 border-black hover:bg-cyan-300 disabled:opacity-40 disabled:cursor-not-allowed text-black font-black uppercase transition-all flex items-center gap-2 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1"
       >
         Next
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M9 5l7 7-7 7" />
+        </svg>
       </button>
     </div>
   );

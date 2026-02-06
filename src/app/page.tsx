@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import FilterBar from "@/components/FilterBar";
 import ArticleList from "@/components/ArticleList";
-import SearchBar from "@/components/SearchBar";
+import Navbar from "@/components/Navbar";
 import Pagination from "@/components/Pagination";
 import NewsletterSignup from "@/components/NewsletterSignup";
 
@@ -20,7 +20,7 @@ export default async function HomePage({ searchParams }: PageProps) {
 
   // Parse page number (default to 1)
   const currentPage = Math.max(1, parseInt(page || '1', 10));
-  const itemsPerPage = 20;
+  const itemsPerPage = 12;
   const skip = (currentPage - 1) * itemsPerPage;
 
   // Build Prisma where clause based on filters
@@ -73,22 +73,21 @@ export default async function HomePage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <main className="max-w-6xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-8 text-gray-900 dark:text-gray-100">
-        AI News Aggregator
-      </h1>
+    <>
+      <Navbar />
+      <main className="min-h-screen bg-gradient-to-br from-cyan-100 via-blue-100 to-purple-100">
+        <div className="max-w-7xl mx-auto p-6 lg:p-8">
+          <FilterBar sources={sources} categories={categories} />
 
-      <SearchBar />
+          <ArticleList articles={articles} />
 
-      <FilterBar sources={sources} categories={categories} />
+          <Pagination currentPage={currentPage} totalPages={totalPages} />
 
-      <ArticleList articles={articles} />
-
-      <Pagination currentPage={currentPage} totalPages={totalPages} />
-
-      <div className="mt-12">
-        <NewsletterSignup />
-      </div>
-    </main>
+          <div className="mt-16">
+            <NewsletterSignup />
+          </div>
+        </div>
+      </main>
+    </>
   );
 }

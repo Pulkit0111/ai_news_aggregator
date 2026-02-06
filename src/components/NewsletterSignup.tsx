@@ -38,28 +38,30 @@ export default function NewsletterSignup() {
   };
 
   return (
-    <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border border-blue-200 dark:border-gray-700 rounded-lg p-6">
-      <h3 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
-        Subscribe to Newsletter
-      </h3>
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
-        Get the latest AI news delivered to your inbox weekly.
-      </p>
+    <div className="bg-gradient-to-r from-purple-300 via-pink-300 to-yellow-300 border-4 border-black p-8 shadow-[12px_12px_0px_0px_rgba(0,0,0,1)]">
+      <div className="text-center mb-6">
+        <h3 className="text-4xl font-black mb-3 text-black uppercase">
+          📬 Newsletter
+        </h3>
+        <p className="text-black font-bold text-lg">
+          Get the latest AI news delivered weekly to your inbox
+        </p>
+      </div>
 
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4 max-w-2xl mx-auto">
         <input
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Enter your email"
+          placeholder="your@email.com"
           required
           disabled={status === 'loading'}
-          className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 disabled:opacity-50"
+          className="flex-1 px-6 py-4 border-4 border-black focus:outline-none focus:bg-white bg-yellow-100 text-black placeholder-gray-600 disabled:opacity-50 font-bold text-lg shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]"
         />
         <button
           type="submit"
           disabled={status === 'loading'}
-          className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="px-8 py-4 bg-cyan-400 text-black border-4 border-black hover:bg-yellow-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all font-black text-lg uppercase shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1"
         >
           {status === 'loading' ? 'Subscribing...' : 'Subscribe'}
         </button>
@@ -68,13 +70,13 @@ export default function NewsletterSignup() {
       {/* Status Messages */}
       {message && (
         <div
-          className={`mt-3 p-3 rounded-md ${
+          className={`mt-6 p-4 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
             status === 'success'
-              ? 'bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200'
-              : 'bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200'
+              ? 'bg-green-300'
+              : 'bg-red-300'
           }`}
         >
-          {message}
+          <p className="text-black font-bold text-center">{message}</p>
         </div>
       )}
     </div>
