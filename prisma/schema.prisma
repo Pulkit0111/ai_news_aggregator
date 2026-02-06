@@ -8,13 +8,16 @@ datasource db {
 }
 
 model Source {
-  id        String    @id @default(uuid())
-  name      String    @unique
-  website   String
-  rssUrl    String?
-  trusted   Boolean   @default(true)
-  articles  Article[]
-  createdAt DateTime  @default(now())
+  id            String    @id @default(uuid())
+  name          String    @unique
+  website       String
+  rssUrl        String?
+  trusted       Boolean   @default(true)
+  lastFetchedAt DateTime?
+  articles      Article[]
+  createdAt     DateTime  @default(now())
+
+  @@index([name])
 }
 
 model Category {
@@ -22,6 +25,8 @@ model Category {
   name      String
   slug      String    @unique
   articles  Article[] @relation("ArticleCategories")
+
+  @@index([slug])
 }
 
 model Article {
@@ -34,6 +39,10 @@ model Article {
   source      Source      @relation(fields: [sourceId], references: [id])
   categories  Category[]  @relation("ArticleCategories")
   createdAt   DateTime    @default(now())
+
+  @@index([publishedAt])
+  @@index([sourceId])
+  @@index([createdAt])
 }
 
 model NewsletterSubscriber {
