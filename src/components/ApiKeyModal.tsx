@@ -63,34 +63,34 @@ export default function ApiKeyModal({ onKeySubmit, onClose }: ApiKeyModalProps) 
     >
         <div className="space-y-6">
           {/* Info Section */}
-          <div className="bg-cyan-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <h3 className="font-black text-lg mb-2 text-black uppercase">ℹ️ Important</h3>
-            <p className="text-black font-bold leading-relaxed mb-2">
+          <div className="bg-cyan-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left">
+            <h3 className="font-black text-lg mb-2 text-black uppercase text-left">ℹ️ Important</h3>
+            <p className="text-black font-bold leading-relaxed mb-2 text-left">
               This application is <span className="text-green-600">100% FREE</span>, but to use AI-powered features like:
             </p>
-            <ul className="list-disc list-inside space-y-1 text-black font-medium ml-2">
+            <ul className="list-disc list-inside space-y-1 text-black font-medium ml-2 text-left">
               <li>Article Summarization</li>
               <li>Top Stories Detection</li>
               <li>Weekly Trend Analysis</li>
             </ul>
-            <p className="text-black font-bold mt-3">
+            <p className="text-black font-bold mt-3 text-left">
               You need to provide your own OpenAI API key.
             </p>
           </div>
 
           {/* Security Note */}
-          <div className="bg-yellow-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <h3 className="font-black text-lg mb-2 text-black uppercase">🔒 Privacy & Security</h3>
-            <p className="text-black font-bold leading-relaxed">
+          <div className="bg-yellow-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left">
+            <h3 className="font-black text-lg mb-2 text-black uppercase text-left">🔒 Privacy & Security</h3>
+            <p className="text-black font-bold leading-relaxed text-left">
               Your API key is stored <span className="text-purple-600">only in your browser</span> (localStorage)
               and is never saved on our servers. Each request uses your key directly with OpenAI.
             </p>
           </div>
 
           {/* How to Get API Key */}
-          <div className="bg-purple-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-            <h3 className="font-black text-lg mb-2 text-black uppercase">📝 How to Get an API Key</h3>
-            <ol className="list-decimal list-inside space-y-2 text-black font-medium ml-2">
+          <div className="bg-purple-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left">
+            <h3 className="font-black text-lg mb-2 text-black uppercase text-left">📝 How to Get an API Key</h3>
+            <ol className="list-decimal list-inside space-y-2 text-black font-medium ml-2 text-left">
               <li>Go to <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" className="text-cyan-600 hover:underline font-black">platform.openai.com/api-keys</a></li>
               <li>Sign up or log in to your OpenAI account</li>
               <li>Click "Create new secret key"</li>
