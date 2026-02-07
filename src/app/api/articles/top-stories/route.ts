@@ -121,6 +121,10 @@ Format as JSON:
       topStories,
       weeklyTrends: aiAnalysis.weeklyTrends,
       totalArticles: articles.length,
+    }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=7200', // 1 hour cache
+      },
     });
   } catch (error) {
     console.error('Top stories error:', error);

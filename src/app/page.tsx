@@ -1,26 +1,69 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Logo from '@/components/Logo';
 import ArticlePreviewCard from '@/components/ArticlePreviewCard';
 import BrowseNewsButton from '@/components/BrowseNewsButton';
 import { prisma } from '@/lib/prisma';
 
-export default async function LandingPage() {
-  // Get stats for the hero section
-  const [articleCount, sourceCount, categoryCount] = await Promise.all([
-    prisma.article.count(),
-    prisma.source.count(),
-    prisma.category.count(),
-  ]);
-
-  // Get latest articles for preview
-  const latestArticles = await prisma.article.findMany({
-    take: 3,
-    orderBy: { publishedAt: 'desc' },
-    include: {
-      source: true,
-      categories: true,
+export const metadata: Metadata = {
+  title: 'AIBUZZ - AI News Intelligence | Free AI News Aggregator',
+  description: 'Stay ahead of the AI wave with AIBUZZ. Free AI-powered news aggregator with smart summarization, trend detection, and curated AI news from trusted sources. No signup required.',
+  keywords: ['AI news', 'artificial intelligence', 'machine learning', 'LLMs', 'AI aggregator', 'tech news', 'AI research'],
+  authors: [{ name: 'Pulkit' }],
+  openGraph: {
+    title: 'AIBUZZ - AI News Intelligence',
+    description: 'Your intelligent AI news aggregator. 100% free, no signup required. Smart categorization, AI summaries, and trend detection.',
+    url: 'https://aibuzz.com',
+    siteName: 'AIBUZZ',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'AIBUZZ - AI News Intelligence',
+    description: 'Free AI-powered news aggregator with smart features. Stay informed on AI developments.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
     },
-  });
+  },
+};
+
+export default async function LandingPage() {
+  // Get stats for the hero section with error handling for build time
+  let articleCount = 0;
+  let sourceCount = 0;
+  let categoryCount = 0;
+  let latestArticles: any[] = [];
+
+  try {
+    [articleCount, sourceCount, categoryCount] = await Promise.all([
+      prisma.article.count(),
+      prisma.source.count(),
+      prisma.category.count(),
+    ]);
+
+    // Get latest articles for preview
+    latestArticles = await prisma.article.findMany({
+      take: 3,
+      orderBy: { publishedAt: 'desc' },
+      include: {
+        source: true,
+        categories: true,
+      },
+    });
+  } catch (error) {
+    // During build time or when database is unavailable, use fallback values
+    console.log('Database unavailable during build, using fallback values');
+    articleCount = 0;
+    sourceCount = 0;
+    categoryCount = 0;
+    latestArticles = [];
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -97,9 +140,16 @@ export default async function LandingPage() {
             {/* Right: Visual/Preview */}
             <div className="relative">
               <div className="space-y-4">
-                {latestArticles.slice(0, 3).map((article) => (
-                  <ArticlePreviewCard key={article.id} article={article} />
-                ))}
+                {latestArticles.length > 0 ? (
+                  latestArticles.slice(0, 3).map((article) => (
+                    <ArticlePreviewCard key={article.id} article={article} />
+                  ))
+                ) : (
+                  <div className="bg-white border-4 border-black p-8 text-center shadow-[8px_8px_0px_0px_rgba(0,0,0,1)]">
+                    <div className="text-4xl mb-4">📰</div>
+                    <p className="font-black text-black">Fresh AI news coming soon!</p>
+                  </div>
+                )}
 
                 <div className="text-center pt-2">
                   <div className="inline-block px-4 py-2 bg-yellow-300 border-4 border-black font-black text-xs text-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">

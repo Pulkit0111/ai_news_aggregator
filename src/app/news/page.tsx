@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+import type { Metadata } from "next";
 import { prisma } from "@/lib/prisma";
 import FilterBar from "@/components/FilterBar";
 import ArticleList from "@/components/ArticleList";
@@ -13,6 +15,35 @@ type PageProps = {
     page?: string;
   }>;
 };
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const { q, category, source } = params;
+
+  let title = 'AI News - AIBUZZ';
+  let description = 'Browse the latest AI news with smart filtering, categorization, and AI-powered insights.';
+
+  if (q) {
+    title = `Search: "${q}" - AIBUZZ`;
+    description = `Search results for "${q}" in AI news articles.`;
+  } else if (category) {
+    title = `${category} News - AIBUZZ`;
+    description = `Latest AI news in ${category} category with smart categorization and insights.`;
+  } else if (source) {
+    title = `${source} Articles - AIBUZZ`;
+    description = `Latest AI news articles from ${source}.`;
+  }
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+    },
+  };
+}
 
 export default async function NewsPage({ searchParams }: PageProps) {
   const params = await searchParams;
@@ -74,14 +105,21 @@ export default async function NewsPage({ searchParams }: PageProps) {
 
   return (
     <NewsPageWrapper>
-      <Navbar />
+      <Suspense fallback={<div className="h-16" />}>
+        <Navbar />
+      </Suspense>
+
       <main className="min-h-screen bg-gradient-to-br from-cyan-100 via-blue-100 to-purple-100">
         <div className="max-w-7xl mx-auto p-6 lg:p-8">
-          <FilterBar sources={sources} categories={categories} />
+          <Suspense fallback={<div className="h-20 animate-pulse bg-white/50 border-4 border-black rounded-lg" />}>
+            <FilterBar sources={sources} categories={categories} />
+          </Suspense>
 
           <ArticleList articles={articles} />
 
-          <Pagination currentPage={currentPage} totalPages={totalPages} />
+          <Suspense fallback={<div className="h-12 animate-pulse bg-white/50 border-4 border-black rounded-lg mt-8" />}>
+            <Pagination currentPage={currentPage} totalPages={totalPages} />
+          </Suspense>
         </div>
       </main>
     </NewsPageWrapper>

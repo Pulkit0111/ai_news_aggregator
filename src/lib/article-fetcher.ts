@@ -40,6 +40,10 @@ export async function fetchArticlesForSource(sourceId: string): Promise<FetchRes
       return result;
     }
 
+    // Fetch all categories once to avoid N+1 queries
+    const allCategories = await prisma.category.findMany();
+    const categoryMap = new Map(allCategories.map(c => [c.slug, c]));
+
     // Parse RSS feed
     const articles = await parseRssFeed(source.rssUrl);
 
@@ -66,14 +70,10 @@ export async function fetchArticlesForSource(sourceId: string): Promise<FetchRes
           // Auto-categorize the article
           const categorySlugs = categorizeArticle(article.title, article.summary);
 
-          // Get category IDs from slugs
-          const categories = await prisma.category.findMany({
-            where: {
-              slug: {
-                in: categorySlugs
-              }
-            }
-          });
+          // Get category IDs from slugs using the pre-fetched map (avoids N+1 query)
+          const categories = categorySlugs
+            .map(slug => categoryMap.get(slug))
+            .filter((cat): cat is NonNullable<typeof cat> => cat !== undefined);
 
           // Create new article
           await prisma.article.create({
