@@ -44,6 +44,15 @@ export default function ArticleCard({ article }: ArticleCardProps) {
     setLoadingSummary(true);
 
     try {
+      // Get API key from localStorage
+      const apiKey = localStorage.getItem('openai_api_key');
+
+      if (!apiKey) {
+        console.error('No API key found');
+        setLoadingSummary(false);
+        return;
+      }
+
       const response = await fetch('/api/article/summarize', {
         method: 'POST',
         headers: {
@@ -53,6 +62,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
           title: article.title,
           url: article.url,
           summary: article.summary,
+          apiKey: apiKey,
         }),
       });
 

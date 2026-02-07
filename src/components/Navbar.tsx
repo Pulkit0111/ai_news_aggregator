@@ -57,7 +57,20 @@ export default function Navbar() {
     setShowTopStories(true);
 
     try {
-      const response = await fetch('/api/articles/top-stories');
+      // Get API key from localStorage
+      const apiKey = localStorage.getItem('openai_api_key');
+
+      if (!apiKey) {
+        console.error('No API key found');
+        setLoadingStories(false);
+        return;
+      }
+
+      const response = await fetch('/api/articles/top-stories', {
+        headers: {
+          'x-openai-key': apiKey,
+        },
+      });
       const data = await response.json();
 
       if (data.success) {

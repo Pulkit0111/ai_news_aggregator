@@ -2,12 +2,25 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    // Get API key from header
+    const apiKey = request.headers.get('x-openai-key');
+
+    if (!apiKey) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: 'OpenAI API key is required'
+        },
+        { status: 401 }
+      );
+    }
+
+    // Create OpenAI client with user's API key
+    const openai = new OpenAI({
+      apiKey: apiKey,
+    });
     // Get articles from the past 7 days
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);

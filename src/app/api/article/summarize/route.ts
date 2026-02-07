@@ -1,13 +1,9 @@
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export async function POST(request: Request) {
   try {
-    const { title, url, summary } = await request.json();
+    const { title, url, summary, apiKey } = await request.json();
 
     if (!title || !url) {
       return NextResponse.json(
@@ -15,6 +11,18 @@ export async function POST(request: Request) {
         { status: 400 }
       );
     }
+
+    if (!apiKey) {
+      return NextResponse.json(
+        { error: 'OpenAI API key is required' },
+        { status: 401 }
+      );
+    }
+
+    // Create OpenAI client with user's API key
+    const openai = new OpenAI({
+      apiKey: apiKey,
+    });
 
     const prompt = `You are an AI news analyst. Analyze this AI news article and provide a concise summary and key insights.
 

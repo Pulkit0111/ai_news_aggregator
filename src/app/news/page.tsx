@@ -4,6 +4,7 @@ import ArticleList from "@/components/ArticleList";
 import Navbar from "@/components/Navbar";
 import Pagination from "@/components/Pagination";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import NewsPageWrapper from "@/components/NewsPageWrapper";
 
 type PageProps = {
   searchParams: Promise<{
@@ -73,7 +74,7 @@ export default async function NewsPage({ searchParams }: PageProps) {
   ]);
 
   return (
-    <>
+    <NewsPageWrapper>
       <Navbar />
       <main className="min-h-screen bg-gradient-to-br from-cyan-100 via-blue-100 to-purple-100">
         <div className="max-w-7xl mx-auto p-6 lg:p-8">
@@ -88,6 +89,6 @@ export default async function NewsPage({ searchParams }: PageProps) {
           </div>
         </div>
       </main>
-    </>
+    </NewsPageWrapper>
   );
 }
