@@ -77,17 +77,17 @@ export default function ApiKeySettings() {
           {!showChangeForm ? (
             <>
               {/* Current Key Info */}
-              <div className="bg-cyan-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                <h3 className="font-black text-lg mb-2 text-black uppercase">Current API Key</h3>
-                <p className="text-black font-mono font-bold text-sm bg-white border-2 border-black p-3">
+              <div className="bg-cyan-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left">
+                <h3 className="font-black text-lg mb-2 text-black uppercase text-left">Current API Key</h3>
+                <p className="text-black font-mono font-bold text-sm bg-white border-2 border-black p-3 text-left">
                   {getMaskedKey()}
                 </p>
               </div>
 
               {/* Info */}
-              <div className="bg-yellow-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                <h3 className="font-black text-lg mb-2 text-black uppercase">ℹ️ About Your Key</h3>
-                <p className="text-black font-bold leading-relaxed">
+              <div className="bg-yellow-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left">
+                <h3 className="font-black text-lg mb-2 text-black uppercase text-left">ℹ️ About Your Key</h3>
+                <p className="text-black font-bold leading-relaxed text-left">
                   Your API key is stored <span className="text-purple-600">only in your browser</span> (localStorage).
                   It's never saved on our servers and is used directly with OpenAI for AI features.
                 </p>
@@ -117,9 +117,9 @@ export default function ApiKeySettings() {
           ) : (
             <>
               {/* Change Key Form */}
-              <div className="bg-purple-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                <h3 className="font-black text-lg mb-2 text-black uppercase">🔄 Change API Key</h3>
-                <p className="text-black font-bold leading-relaxed">
+              <div className="bg-purple-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] text-left">
+                <h3 className="font-black text-lg mb-2 text-black uppercase text-left">🔄 Change API Key</h3>
+                <p className="text-black font-bold leading-relaxed text-left">
                   Enter your new OpenAI API key below. The page will reload to apply the changes.
                 </p>
               </div>
