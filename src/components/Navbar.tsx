@@ -3,6 +3,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import Modal from './Modal';
+import Logo from './Logo';
 
 export default function Navbar() {
   const router = useRouter();
@@ -41,7 +42,7 @@ export default function Navbar() {
       // Reset to page 1 when search changes
       params.delete('page');
 
-      router.push(`/?${params.toString()}`, { scroll: false });
+      router.push(`/news?${params.toString()}`, { scroll: false });
     }, 500);
 
     return () => clearTimeout(timeoutId);
@@ -78,9 +79,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-20">
           {/* Logo/Brand */}
           <div className="flex-shrink-0">
-            <h1 className="text-3xl font-black text-black tracking-tight">
-              <span className="text-cyan-500">AI</span> NEWS
-            </h1>
+            <Logo href="/" />
           </div>
 
           {/* Search Bar */}
