@@ -5,6 +5,9 @@ import ArticlePreviewCard from '@/components/ArticlePreviewCard';
 import BrowseNewsButton from '@/components/BrowseNewsButton';
 import { prisma } from '@/lib/prisma';
 
+// Force dynamic rendering to avoid database connection during build
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'AIBUZZ - AI News Intelligence | Free AI News Aggregator',
   description: 'Stay ahead of the AI wave with AIBUZZ. Free AI-powered news aggregator with smart summarization, trend detection, and curated AI news from trusted sources. No signup required.',
