@@ -27,27 +27,9 @@ async function main() {
       trusted: true,
     },
     {
-      name: "Papers with Code",
-      website: "https://paperswithcode.com",
-      rssUrl: "https://paperswithcode.com/latest/rss",
-      trusted: true,
-    },
-    {
       name: "DeepMind Blog",
       website: "https://deepmind.google/blog/",
       rssUrl: "https://deepmind.google/blog/rss.xml",
-      trusted: true,
-    },
-    {
-      name: "Anthropic News",
-      website: "https://www.anthropic.com/news",
-      rssUrl: "https://www.anthropic.com/news/rss.xml",
-      trusted: true,
-    },
-    {
-      name: "The Batch by deeplearning.ai",
-      website: "https://www.deeplearning.ai/the-batch/",
-      rssUrl: "https://www.deeplearning.ai/the-batch/rss/",
       trusted: true,
     },
     {
@@ -63,9 +45,15 @@ async function main() {
       trusted: true,
     },
     {
-      name: "AI News (Unite.AI)",
-      website: "https://www.unite.ai/",
-      rssUrl: "https://www.unite.ai/feed/",
+      name: "The Verge AI",
+      website: "https://www.theverge.com/ai-artificial-intelligence",
+      rssUrl: "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      trusted: true,
+    },
+    {
+      name: "Ars Technica AI",
+      website: "https://arstechnica.com/ai/",
+      rssUrl: "https://feeds.arstechnica.com/arstechnica/technology-lab",
       trusted: true,
     },
     {
