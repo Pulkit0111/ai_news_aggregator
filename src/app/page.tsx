@@ -188,11 +188,11 @@ export default async function LandingPage() {
             {/* Feature 6 */}
             <div className="bg-orange-100 border-4 border-black p-6 shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-2 hover:translate-y-2 hover:shadow-none transition-all">
               <div className="w-16 h-16 bg-orange-400 border-4 border-black flex items-center justify-center text-3xl mb-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
-                📬
+                ⚡
               </div>
-              <h3 className="text-2xl font-black text-black mb-3 uppercase">Newsletter</h3>
+              <h3 className="text-2xl font-black text-black mb-3 uppercase">Real-Time Updates</h3>
               <p className="text-black font-bold leading-relaxed">
-                Subscribe to curated weekly digests delivered straight to your inbox with top highlights.
+                Stay up-to-date with the latest AI news automatically aggregated from trusted sources.
               </p>
             </div>
           </div>
@@ -336,7 +336,7 @@ export default async function LandingPage() {
                 <li>Top Stories Detection</li>
                 <li>Smart Categorization</li>
                 <li>Semantic Search</li>
-                <li>Weekly Newsletter</li>
+                <li>Real-Time Updates</li>
               </ul>
             </div>
 

@@ -44,10 +44,3 @@ model Article {
   @@index([sourceId])
   @@index([createdAt])
 }
-
-model NewsletterSubscriber {
-  id            String   @id @default(uuid())
-  email         String   @unique
-  subscribedAt  DateTime @default(now())
-  active        Boolean  @default(true)
-}

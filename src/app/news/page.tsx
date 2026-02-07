@@ -3,7 +3,6 @@ import FilterBar from "@/components/FilterBar";
 import ArticleList from "@/components/ArticleList";
 import Navbar from "@/components/Navbar";
 import Pagination from "@/components/Pagination";
-import NewsletterSignup from "@/components/NewsletterSignup";
 import NewsPageWrapper from "@/components/NewsPageWrapper";
 
 type PageProps = {
@@ -83,10 +82,6 @@ export default async function NewsPage({ searchParams }: PageProps) {
           <ArticleList articles={articles} />
 
           <Pagination currentPage={currentPage} totalPages={totalPages} />
-
-          <div className="mt-16">
-            <NewsletterSignup />
-          </div>
         </div>
       </main>
     </NewsPageWrapper>
