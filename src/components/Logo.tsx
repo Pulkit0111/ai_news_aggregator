@@ -2,17 +2,21 @@ import Link from 'next/link';
 
 type LogoProps = {
   variant?: 'default' | 'large';
+  theme?: 'light' | 'dark';
   href?: string;
 };
 
-export default function Logo({ variant = 'default', href = '/' }: LogoProps) {
+export default function Logo({ variant = 'default', theme = 'light', href = '/' }: LogoProps) {
   const isLarge = variant === 'large';
+  const isDark = theme === 'dark';
 
   const content = (
     <div className={`flex items-center gap-2 ${isLarge ? 'gap-3' : 'gap-2'}`}>
       {/* Logo Icon */}
       <div className={`relative ${isLarge ? 'w-12 h-12' : 'w-10 h-10'}`}>
-        <div className={`absolute inset-0 bg-gradient-to-br from-cyan-400 via-purple-400 to-pink-400 border-4 border-black ${isLarge ? 'shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]' : 'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'}`}>
+        <div className={`absolute inset-0 bg-gradient-to-br from-cyan-400 via-purple-400 to-pink-400 ${
+          isDark ? 'border-4 border-white' : 'border-4 border-black'
+        } ${isLarge ? 'shadow-[6px_6px_0px_0px_rgba(0,0,0,1)]' : 'shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]'}`}>
           <div className="absolute inset-0 flex items-center justify-center">
             {/* AI Icon - stylized brain/circuit */}
             <svg
@@ -40,10 +44,10 @@ export default function Logo({ variant = 'default', href = '/' }: LogoProps) {
       {/* Logo Text */}
       <div className="flex flex-col">
         <div className={`font-black tracking-tight leading-none ${isLarge ? 'text-4xl' : 'text-3xl'}`}>
-          <span className="text-cyan-500">AI</span>
-          <span className="text-black">BUZZ</span>
+          <span className="text-cyan-400">AI</span>
+          <span className={isDark ? 'text-white' : 'text-black'}>BUZZ</span>
         </div>
-        <div className={`font-bold text-black opacity-80 ${isLarge ? 'text-sm tracking-wider' : 'text-xs tracking-wide'}`}>
+        <div className={`font-bold ${isDark ? 'text-white' : 'text-black'} opacity-80 ${isLarge ? 'text-sm tracking-wider' : 'text-xs tracking-wide'}`}>
           NEWS INTELLIGENCE
         </div>
       </div>

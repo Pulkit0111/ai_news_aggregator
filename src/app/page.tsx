@@ -322,15 +322,7 @@ export default async function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8">
             <div>
               <div className="mb-4">
-                <div className="flex items-center gap-2">
-                  <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-purple-400 border-4 border-white"></div>
-                  <div>
-                    <div className="font-black text-2xl">
-                      <span className="text-cyan-400">AI</span>BUZZ
-                    </div>
-                    <div className="text-xs font-bold opacity-80">NEWS INTELLIGENCE</div>
-                  </div>
-                </div>
+                <Logo theme="dark" href="/" />
               </div>
               <p className="text-sm font-bold opacity-80">
                 Your AI-powered news aggregator for staying ahead in the world of artificial intelligence.
