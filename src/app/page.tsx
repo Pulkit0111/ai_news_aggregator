@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Logo from '@/components/Logo';
 import ArticlePreviewCard from '@/components/ArticlePreviewCard';
+import BrowseNewsButton from '@/components/BrowseNewsButton';
 import { prisma } from '@/lib/prisma';
 
 export default async function LandingPage() {
@@ -29,12 +30,9 @@ export default async function LandingPage() {
           <div className="flex items-center justify-between h-20">
             <Logo />
             <div className="flex items-center gap-4">
-              <Link
-                href="/news"
-                className="px-6 py-2 bg-cyan-400 border-4 border-black font-black text-black uppercase text-sm hover:bg-yellow-400 transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
-              >
+              <BrowseNewsButton className="px-6 py-2 bg-cyan-400 border-4 border-black font-black text-black uppercase text-sm hover:bg-yellow-400 transition-colors shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-none">
                 Browse News
-              </Link>
+              </BrowseNewsButton>
             </div>
           </div>
         </div>
@@ -68,12 +66,9 @@ export default async function LandingPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/news"
-                  className="px-8 py-4 bg-cyan-400 border-4 border-black font-black text-black uppercase text-lg hover:bg-yellow-400 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-2 hover:translate-y-2 hover:shadow-none text-center"
-                >
+                <BrowseNewsButton className="px-8 py-4 bg-cyan-400 border-4 border-black font-black text-black uppercase text-lg hover:bg-yellow-400 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-2 hover:translate-y-2 hover:shadow-none text-center">
                   🚀 Explore News
-                </Link>
+                </BrowseNewsButton>
                 <a
                   href="#features"
                   className="px-8 py-4 bg-white border-4 border-black font-black text-black uppercase text-lg hover:bg-purple-200 transition-all shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:translate-x-2 hover:translate-y-2 hover:shadow-none text-center"
@@ -307,12 +302,9 @@ export default async function LandingPage() {
           <p className="text-2xl font-black text-green-600 mb-12">
             🎉 100% FREE • No Signup Required • Unlimited Access
           </p>
-          <Link
-            href="/news"
-            className="inline-block px-12 py-6 bg-black text-yellow-300 border-4 border-black font-black uppercase text-xl hover:bg-cyan-500 hover:text-black transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-3 hover:translate-y-3 hover:shadow-none"
-          >
+          <BrowseNewsButton className="inline-block px-12 py-6 bg-black text-yellow-300 border-4 border-black font-black uppercase text-xl hover:bg-cyan-500 hover:text-black transition-all shadow-[12px_12px_0px_0px_rgba(0,0,0,0.3)] hover:translate-x-3 hover:translate-y-3 hover:shadow-none">
             🚀 Start Exploring Now
-          </Link>
+          </BrowseNewsButton>
         </div>
       </section>
 
@@ -344,9 +336,9 @@ export default async function LandingPage() {
               <h3 className="font-black text-lg mb-4 text-yellow-400">QUICK LINKS</h3>
               <ul className="space-y-2 text-sm font-bold">
                 <li>
-                  <Link href="/news" className="hover:text-cyan-400 transition-colors">
+                  <BrowseNewsButton className="hover:text-cyan-400 transition-colors text-left">
                     Browse News
-                  </Link>
+                  </BrowseNewsButton>
                 </li>
                 <li>
                   <a href="#features" className="hover:text-cyan-400 transition-colors">

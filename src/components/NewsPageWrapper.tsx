@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import ApiKeyModal from './ApiKeyModal';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import ApiKeySettings from './ApiKeySettings';
 
 type NewsPageWrapperProps = {
@@ -9,26 +9,36 @@ type NewsPageWrapperProps = {
 };
 
 export default function NewsPageWrapper({ children }: NewsPageWrapperProps) {
-  const [hasApiKey, setHasApiKey] = useState(false);
+  const router = useRouter();
+  const [hasApiKey, setHasApiKey] = useState<boolean | null>(null);
 
-  const handleKeySubmit = (apiKey: string) => {
-    setHasApiKey(true);
-  };
+  useEffect(() => {
+    // Check if user has API key
+    const apiKey = localStorage.getItem('openai_api_key');
 
-  const handleModalClose = () => {
-    // Modal was closed without entering key, don't show loading
-    setHasApiKey(false);
-  };
+    if (!apiKey) {
+      // No API key, redirect to home
+      router.push('/');
+    } else {
+      setHasApiKey(true);
+    }
+  }, [router]);
+
+  // Don't render anything until we've checked for API key
+  if (hasApiKey === null) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-cyan-100 via-blue-100 to-purple-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="inline-block animate-spin h-16 w-16 border-8 border-black border-t-transparent rounded-full mb-4"></div>
+          <p className="text-2xl font-black text-black">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
-      {/* Always render children so background is visible behind modal */}
       {children}
-
-      {/* Show API key modal if no key exists */}
-      <ApiKeyModal onKeySubmit={handleKeySubmit} onClose={handleModalClose} />
-
-      {/* Show API key settings button only when user has a key */}
       {hasApiKey && <ApiKeySettings />}
     </>
   );
