@@ -22,13 +22,14 @@ export default function NewsPageWrapper({ children }: NewsPageWrapperProps) {
 
   return (
     <>
+      {/* Always render children so background is visible behind modal */}
+      {children}
+
+      {/* Show API key modal if no key exists */}
       <ApiKeyModal onKeySubmit={handleKeySubmit} onClose={handleModalClose} />
-      {hasApiKey && (
-        <>
-          {children}
-          <ApiKeySettings />
-        </>
-      )}
+
+      {/* Show API key settings button only when user has a key */}
+      {hasApiKey && <ApiKeySettings />}
     </>
   );
 }
