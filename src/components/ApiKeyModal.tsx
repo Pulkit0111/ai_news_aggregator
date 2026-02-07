@@ -1,15 +1,18 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Modal from './Modal';
 
 const API_KEY_STORAGE_KEY = 'openai_api_key';
 
 type ApiKeyModalProps = {
   onKeySubmit: (apiKey: string) => void;
+  onClose?: () => void;
 };
 
-export default function ApiKeyModal({ onKeySubmit }: ApiKeyModalProps) {
+export default function ApiKeyModal({ onKeySubmit, onClose }: ApiKeyModalProps) {
+  const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
   const [apiKey, setApiKey] = useState('');
   const [error, setError] = useState('');
@@ -45,19 +48,19 @@ export default function ApiKeyModal({ onKeySubmit }: ApiKeyModalProps) {
     onKeySubmit(apiKey.trim());
   };
 
-  const handleClearKey = () => {
-    localStorage.removeItem(API_KEY_STORAGE_KEY);
-    setApiKey('');
-    setIsOpen(true);
+  const handleModalClose = () => {
+    setIsOpen(false);
+    // Redirect to home page if user closes without entering key
+    router.push('/');
+    if (onClose) onClose();
   };
 
   return (
-    <>
-      <Modal
-        isOpen={isOpen}
-        onClose={() => {}} // Prevent closing without key
-        title="🔑 OpenAI API Key Required"
-      >
+    <Modal
+      isOpen={isOpen}
+      onClose={handleModalClose}
+      title="🔑 OpenAI API Key Required"
+    >
         <div className="space-y-6">
           {/* Info Section */}
           <div className="bg-cyan-100 border-4 border-black p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
@@ -129,22 +132,10 @@ export default function ApiKeyModal({ onKeySubmit }: ApiKeyModalProps) {
 
           {/* Note */}
           <p className="text-xs text-gray-600 font-bold text-center">
-            Note: You can change your API key anytime from the settings menu.
+            Note: You can change or revoke your API key anytime from the API Key button.
           </p>
         </div>
       </Modal>
-
-      {/* Settings button to change key (shown when key exists) */}
-      {!isOpen && (
-        <button
-          onClick={handleClearKey}
-          className="fixed bottom-4 right-4 p-3 bg-purple-400 border-4 border-black font-black text-black hover:bg-yellow-300 transition-colors shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:translate-x-1 hover:translate-y-1 hover:shadow-[3px_3px_0px_0px_rgba(0,0,0,1)] z-40"
-          title="Change API Key"
-        >
-          🔑 API Key
-        </button>
-      )}
-    </>
   );
 }
 
