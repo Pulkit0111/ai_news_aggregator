@@ -4,8 +4,29 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const page = parseInt(searchParams.get('page') || '1', 10);
-    const limit = Math.min(parseInt(searchParams.get('limit') || '100', 10), 200); // Max 200 per request
+    const pageParam = searchParams.get('page');
+    const limitParam = searchParams.get('limit');
+    const parsedPage = pageParam === null ? 1 : Number(pageParam);
+    const parsedLimit = limitParam === null ? 100 : Number(limitParam);
+    const paginationErrors: string[] = [];
+
+    if (!Number.isFinite(parsedPage) || !Number.isInteger(parsedPage) || parsedPage <= 0) {
+      paginationErrors.push('page must be a positive integer');
+    }
+
+    if (!Number.isFinite(parsedLimit) || !Number.isInteger(parsedLimit) || parsedLimit <= 0) {
+      paginationErrors.push('limit must be a positive integer');
+    }
+
+    if (paginationErrors.length > 0) {
+      return NextResponse.json(
+        { error: 'Invalid pagination parameters', details: paginationErrors },
+        { status: 400 }
+      );
+    }
+
+    const page = parsedPage;
+    const limit = Math.min(parsedLimit, 200); // Max 200 per request
     const skip = (page - 1) * limit;
 
     const [articles, total] = await Promise.all([
