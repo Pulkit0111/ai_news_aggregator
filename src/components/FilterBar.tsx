@@ -27,7 +27,7 @@ export default function FilterBar({ sources, categories }: FilterBarProps) {
     // Reset to page 1 when filters change
     params.delete('page');
 
-    router.push(`/?${params.toString()}`);
+    router.push(`/news?${params.toString()}`, { scroll: false });
   };
 
   return (
